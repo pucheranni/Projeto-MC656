@@ -13,3 +13,7 @@ localização, avaliação de veículo e pessoal. Também são esperados recurso
 auxiliam o usuário a participar da plataforma, como por exemplo um sistema de avaliações (por parte 
 de quem está emprestando um veículo e por parte de quem está usufruindo) e engajamento, através 
 de conquistas (modelo de gamificação).
+
+# Integrantes:
+
+Antonio De Cesare Del Nero (220277)
