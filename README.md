@@ -20,3 +20,4 @@ de conquistas (modelo de gamificação).
 - Thiago do Carmo Rodrigues Pinto (237827)
 - José Carlos Cieni Júnior (170859)
 - Barbara Nascimento (167109)
+- Gabriel Augusto Ribeiro Ferreira (171851)
