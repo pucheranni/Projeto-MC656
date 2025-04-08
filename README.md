@@ -17,3 +17,4 @@ de conquistas (modelo de gamificação).
 # Integrantes:
 
 Antonio De Cesare Del Nero (220277)
+Thiago do Carmo Rodrigues Pinto (237827)
