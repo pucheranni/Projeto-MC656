@@ -21,4 +21,4 @@ de conquistas (modelo de gamificação).
 - José Carlos Cieni Júnior (170859)
 - Barbara Nascimento (167109)
 - Gabriel Augusto Ribeiro Ferreira (171851)
--Gustavo Oliveira de Sousa (247149)
+- Gustavo Oliveira de Sousa (247149)
