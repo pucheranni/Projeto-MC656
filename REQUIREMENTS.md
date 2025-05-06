@@ -69,3 +69,18 @@ Campos obrigatórios (tipo, foto, nome, local de retirada), opções de requisit
 Issue: \#15  
 Critérios:  
  Exibição de cards com status, botão de edição/exclusão.
+
+ # Brainstorm:
+
+Algumas ideias que podem ser implementadas.
+
+- Reserva Programada de Veículos
+Permitir que usuários reservem bicicletas ou outros veículos com antecedência.
+Notificação push para lembrar o horário reservado e localização do veículo.
+
+- Gamificação Avançada
+Criação de badges como: “Usuário Responsável”, “Colaborador”, entre outras.
+Incentivos que podem premiar os usuários mais frequentes com descontos no app.
+
+- Detecção de Problemas em Veículos
+Detecção de problemas em veículos com base em feedbacks de usuários.
