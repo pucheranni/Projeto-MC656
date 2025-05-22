@@ -8,12 +8,42 @@
 import SwiftUI
 
 struct InitialView: View {
-    private var screenPadding: CGFloat = 24
-    @State private var email: String = ""
-    @State private var pass: String = ""
+    private var screenPadding: CGFloat
+    @State private var email: String
+    @State private var pass: String
+    private var model: InitialModel
+
+    init(
+        screenPadding: CGFloat = 24,
+        email: String = String(),
+        pass: String = String(),
+        model: InitialModel = InitialModel()
+    ) {
+        self.screenPadding = screenPadding
+        self.email = email
+        self.pass = pass
+        self.model = model
+    }
+
     var body: some View {
         
         VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Spacer()
+                Image(systemName: "bicycle.circle")
+                    .imageScale(.large)
+                    .font(.system(size: 160))
+                    .frame(width: 160, height: 160, alignment: .center)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(
+                                colors: [Color.blue,
+                                         Color.purple]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing))
+                    .cornerRadius(80)
+                Spacer()
+            }
             FloatingTextField(
                 placeHolder: "E-mail",
                 text: $email,
@@ -26,11 +56,18 @@ struct InitialView: View {
                 rightIcon: "key.fill"
             )
             Button("Ainda não tenho conta", action: {
-                // Levar ao cadastro
+                model.routeToRegister()
             })
-            Button(action: {
-                
-            }, label: {
+            Button(
+                action: {
+                    Task {
+                        await model.callAuth(
+                            email: email,
+                            password: pass
+                        )
+                    }
+                },
+                label: {
                 Text("Entrar")
                     .colorInvert()
             })
@@ -128,7 +165,6 @@ struct FloatingTextField: View {
         }
     }
 }
-
 
 #Preview {
     InitialView()

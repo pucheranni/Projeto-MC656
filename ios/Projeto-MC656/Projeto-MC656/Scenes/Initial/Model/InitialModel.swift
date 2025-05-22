@@ -9,5 +9,11 @@ import SwiftUI
 
 @Observable
 class InitialModel {
-    
+    func callAuth(email: String, password: String) async {
+
+    }
+
+    func routeToRegister() {
+        
+    }
 }
