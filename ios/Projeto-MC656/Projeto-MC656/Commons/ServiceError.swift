@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ServiceError: Error, LocalizedError {
+enum ServiceError: Error, LocalizedError, Equatable {
     case invalidCredentials
     case serverError(String)
     case invalidEmail

@@ -18,16 +18,19 @@ class LoginService {
         return LoginResponse(token: "token_mockado")
     }
 
-    private func checkEmail(_ email: String) throws {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+    func checkEmail(_ email: String) throws {
+        let emailRegex = "^(?!.*[\\.\\+\\_\\-\\@]{2})(?![0-9]+@)[\\w\\_\\-\\.\\+]+@([\\w-]+\\.)+(?![0-9]+$)[\\w-]{2,}$"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         if !emailPredicate.evaluate(with: email) {
             throw ServiceError.invalidEmail
         }
     }
 
-    private func checkPassword(_ password: String) throws {
-        guard password.count >= 6 else {
+    func checkPassword(_ password: String) throws {
+        let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{6,}$"
+        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+
+        guard passwordPredicate.evaluate(with: password) else {
             throw ServiceError.invalidPassword
         }
     }
