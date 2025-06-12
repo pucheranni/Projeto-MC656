@@ -7,13 +7,35 @@
 
 import SwiftUI
 
-@Observable
-class InitialModel {
-    func callAuth(email: String, password: String) async {
+class InitialModel: ObservableObject {
+    @Published var email: String = ""
+    @Published var password: String = ""
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String?
+    @Published var isLoggedIn: Bool = false
 
+    private let service = LoginService()
+
+    @MainActor
+    func login() async {
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            let response = try await service.callAuth(email: email, password: password)
+            isLoggedIn = true
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+
+        isLoading = false
     }
 
     func routeToRegister() {
-        
+
     }
+}
+
+extension InitialModel: ButtonDelegate {
+    
 }
