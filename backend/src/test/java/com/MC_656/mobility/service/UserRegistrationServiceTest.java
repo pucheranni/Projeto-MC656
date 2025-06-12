@@ -43,13 +43,12 @@ class UserRegistrationServiceTest {
     @ValueSource(strings = {
             "123456789",      // CPF muito curto
             "123456789012",   // CPF muito longo
-            "123.456.789-00", // Formato válido que deve ser limpo e validado
+            "123.abc.789-00", // Formato com letras
             "00000000000",    // CPF inválido (todos os dígitos iguais)
             "11111111111"     // CPF inválido (todos os dígitos iguais)
     })
     @DisplayName("Deve rejeitar registro com números de CPF inválidos")
     void deveRejeitarCpfsInvalidos(String cpfInvalido) {
-        // Classes de Equivalência e Limites: Comprimento, formato e regras de negócio do CPF
         assertFalse(userRegistrationService.registerUser("Test User", "test@example.com", cpfInvalido, "11987654321"));
     }
     

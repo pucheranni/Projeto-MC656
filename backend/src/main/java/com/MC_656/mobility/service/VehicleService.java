@@ -26,14 +26,13 @@ public class VehicleService {
      */
     public boolean updateVehicleStatus(String fromStatus, String toStatus) {
         // Lógica de transição simplificada: Apenas valida se os status existem.
-        // Uma implementação real validaria a transição (ex: não pode ir de MAINTENANCE para AVAILABLE diretamente).
         if (!isStatusValid(fromStatus) || !isStatusValid(toStatus)) {
             return false;
         }
         // Rejeita transições inválidas específicas, conforme os testes.
         if ("IN_USE".equals(fromStatus) && "AVAILABLE".equals(toStatus)) return false;
         if ("MAINTENANCE".equals(fromStatus) && "IN_USE".equals(toStatus)) return false;
-        
+
         return true;
     }
 
@@ -42,6 +41,8 @@ public class VehicleService {
      * @return true se a localização for válida, false caso contrário.
      */
     public boolean updateVehicleLocation(String vehicleId, String newLocation) {
+        // A validação do ID do veículo e da nova localização é necessária.
+        // A linha abaixo agora inclui a chamada para a função de validação.
         if (vehicleId == null || vehicleId.isEmpty() || !isLocationValid(newLocation)) {
             return false;
         }

@@ -30,11 +30,17 @@ public class UserRegistrationService {
 
     private boolean isCpfValid(String cpf) {
         if (cpf == null) return false;
-        // Remove caracteres não numéricos
-        String cleanedCpf = cpf.replaceAll("[^0-9]", "");
+        // Verifica se o CPF original contém algo que não seja número
+        if (!cpf.matches("^[0-9.-]*$")) {
+            return false;
+        }
+
+        String cleanedCpf = cpf.replaceAll("[^0-9]", ""); // Remove pontos e traços
         if (cleanedCpf.length() != 11) return false;
-        // Verifica se todos os dígitos são iguais (ex: "11111111111"), o que é inválido
+
+        // Verifica se todos os dígitos são iguais
         if (cleanedCpf.matches("(\\d)\\1{10}")) return false;
+
         return true;
     }
 
