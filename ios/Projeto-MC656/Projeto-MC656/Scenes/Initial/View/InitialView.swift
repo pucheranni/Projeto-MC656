@@ -8,25 +8,10 @@
 import SwiftUI
 
 struct InitialView: View {
-    private var screenPadding: CGFloat
-    @State private var email: String
-    @State private var pass: String
-    private var model: InitialModel
-
-    init(
-        screenPadding: CGFloat = 24,
-        email: String = String(),
-        pass: String = String(),
-        model: InitialModel = InitialModel()
-    ) {
-        self.screenPadding = screenPadding
-        self.email = email
-        self.pass = pass
-        self.model = model
-    }
+    private var screenPadding: CGFloat = 24
+    @StateObject private var model: InitialModel = InitialModel()
 
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Spacer()
@@ -37,9 +22,9 @@ struct InitialView: View {
             Button("Ainda não tenho conta", action: {
                 model.routeToRegister()
             })
-            CustomButton(title: "Entrar") {
+            CustomButton(title: "Entrar", delegate: model) {
                 Task {
-                    await model.callAuth(email: email, password: pass)
+                    await model.login()
                 }
             }
         }
@@ -51,6 +36,11 @@ struct InitialView: View {
                 trailing: screenPadding
             )
         )
+        if let errorMessage = model.errorMessage {
+            Text(errorMessage)
+                .foregroundColor(.red)
+                .multilineTextAlignment(.center)
+        }
     }
 
     var logo: some View {
@@ -69,22 +59,21 @@ struct InitialView: View {
     }
 
     var textFields: some View {
-        HStack {
+        VStack {
             CustomTextField(
                 placeHolder: "E-mail",
-                text: $email,
+                text: $model.email,
                 rightIcon: "person.fill"
             )
             CustomTextField(
                 placeHolder: "Senha",
-                text: $pass,
+                text: $model.password,
                 shouldBeSecure: true,
                 rightIcon: "key.fill"
             )
         }
     }
 }
-
 #Preview {
     InitialView()
 }

@@ -7,9 +7,14 @@
 
 import SwiftUI
 
+protocol ButtonDelegate: AnyObject {
+    var isLoading: Bool { get }
+}
+
 struct CustomButton: View {
     var title: String
     var action: (() async -> Void)
+    weak var delegate: ButtonDelegate?
 
     var body: some View {
         Button(
@@ -19,9 +24,15 @@ struct CustomButton: View {
                 }
             },
             label: {
-            Text(title)
-                .colorInvert()
-        })
+                if delegate?.isLoading == true {
+                    ProgressView()
+                        .tint(.white)
+                } else {
+                    Text(title)
+                        .colorInvert()
+                }
+            }
+        )
         .frame(maxWidth: .infinity, minHeight: 48, maxHeight: 48)
         .foregroundColor(.black)
         .background(
