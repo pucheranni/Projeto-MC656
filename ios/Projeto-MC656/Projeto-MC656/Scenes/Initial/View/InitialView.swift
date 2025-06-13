@@ -19,14 +19,12 @@ struct InitialView: View {
                 Spacer()
             }
             textFields
-            Button("Ainda não tenho conta", action: {
-                model.routeToRegister()
-            })
-            CustomButton(title: "Entrar", delegate: model) {
+            NavigationLink("Ainda não tenho conta", destination: RegisterView())
+            CustomButton(title: "Entrar", delegate: model, action:  {
                 Task {
                     await model.login()
                 }
-            }
+            })
         }
         .padding(
             EdgeInsets(
@@ -74,6 +72,7 @@ struct InitialView: View {
         }
     }
 }
+
 #Preview {
     InitialView()
 }

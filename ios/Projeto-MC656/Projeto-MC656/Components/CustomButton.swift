@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-protocol ButtonDelegate: AnyObject {
+protocol CustomButtonDelegate: AnyObject {
     var isLoading: Bool { get }
 }
 
 struct CustomButton: View {
     var title: String
+    weak var delegate: CustomButtonDelegate?
     var action: (() async -> Void)
-    weak var delegate: ButtonDelegate?
 
     var body: some View {
         Button(

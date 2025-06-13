@@ -13,23 +13,25 @@ struct CustomTextField: View {
     @Binding private var text: String
     @State private var isEditing = false
     @State var shouldBeSecure = false
+    var keyboardType: UIKeyboardType = .default
     let rightIcon: String?
 
     private var shouldPlaceHolderMove: Bool {
         isEditing || (text.count != 0)
     }
 
-    // MARK: - init
     public init(
         placeHolder: String,
         text: Binding<String>,
         shouldBeSecure: Bool = false,
+        keyboardType: UIKeyboardType = .default,
         rightIcon: String? = nil
     ) {
         self._text = text
         self.placeHolderText = placeHolder
         self.shouldBeSecure = shouldBeSecure
         self.rightIcon = rightIcon
+        self.keyboardType = keyboardType
     }
 
     var body: some View {
@@ -41,6 +43,7 @@ struct CustomTextField: View {
                     .frame(alignment: .leading)
                 } else {
                     TextField(String(), text: $text)
+                        .keyboardType(keyboardType)
                     .foregroundColor(Color.primary)
                     .animation(Animation.easeInOut(duration: 0.4), value: EdgeInsets())
                     .frame(alignment: .leading)
