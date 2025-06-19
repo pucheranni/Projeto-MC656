@@ -1,20 +1,14 @@
 //
-//  LoginServiceTest.swift
+//  StringExtensionsTests.swift
 //  Projeto-MC656Tests
 //
-//  Created by Gab on 12/06/25.
+//  Created by Gab on 13/06/25.
 //
 
 import Testing
 @testable import Projeto_MC656
 
-struct LoginServiceTest {
-    var sut: LoginService!
-
-    init() {
-        sut = LoginService()
-    }
-
+struct StringExtensionsTests {
     @Test func validEmails() {
         let validEmails = [
             "a@b.co",
@@ -29,7 +23,7 @@ struct LoginServiceTest {
 
         for email in validEmails {
             do {
-                try sut.checkEmail(email)
+                try email.check(.email)
             } catch {
                 Issue.record("E-mail válido lançou erro: \(email)")
             }
@@ -79,8 +73,8 @@ struct LoginServiceTest {
         ]
 
         for email in invalidEmails {
-            #expect(throws: ServiceError.invalidEmail, "E-mail inválido aceito: \(email)") {
-                try sut.checkEmail(email)
+            #expect(throws: DataError.invalidEmail, "E-mail inválido aceito: \(email)") {
+                try email.check(.email)
             }
         }
     }
@@ -93,7 +87,7 @@ struct LoginServiceTest {
 
         for password in validPasswords {
             do {
-                try sut.checkPassword(password)
+                try password.check(.password)
             } catch {
                 Issue.record("Senha válida lançou erro: \(password)")
             }
@@ -112,8 +106,8 @@ struct LoginServiceTest {
         ]
 
         for password in invalidPasswords {
-            #expect(throws: ServiceError.invalidPassword, "E-mail inválido aceito: \(password)") {
-                try sut.checkPassword(password)
+            #expect(throws: DataError.invalidPassword, "Senha inválida aceita: \(password)") {
+                try password.check(.password)
             }
         }
     }

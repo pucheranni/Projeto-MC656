@@ -22,6 +22,8 @@ class InitialModel: ObservableObject {
         errorMessage = nil
 
         do {
+            try email.check(.email)
+            try password.check(.password)
             let response = try await service.callAuth(email: email, password: password)
             isLoggedIn = true
         } catch {
@@ -30,12 +32,8 @@ class InitialModel: ObservableObject {
 
         isLoading = false
     }
-
-    func routeToRegister() {
-
-    }
 }
 
-extension InitialModel: ButtonDelegate {
+extension InitialModel: CustomButtonDelegate {
     
 }
