@@ -17,7 +17,7 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 // Updated to include only eco-friendly options
-enum VehicleType {
+public enum VehicleType { // Made public
     BICYCLE,      // Traditional bicycle
     E_BIKE,       // Electric bicycle
     SCOOTER,      // Kick scooter or electric scooter not requiring license
@@ -27,7 +27,7 @@ enum VehicleType {
     // Add other eco-friendly types as needed, e.g., E_MOTORCYCLE
 }
 
-enum VehicleStatus {
+public enum VehicleStatus { // Made public
     AVAILABLE,
     RENTED,
     MAINTENANCE,
