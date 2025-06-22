@@ -16,23 +16,14 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
-// Updated to include only eco-friendly options
-public enum VehicleType { // Made public
-    BICYCLE,      // Traditional bicycle
-    E_BIKE,       // Electric bicycle
-    SCOOTER,      // Kick scooter or electric scooter not requiring license
-    E_SCOOTER,    // Electric scooter (potentially more powerful, moped-like)
-    ELECTRIC_CAR, // Fully electric car
-    CARGO_BIKE    // Bicycle designed for transporting larger items
-    // Add other eco-friendly types as needed, e.g., E_MOTORCYCLE
-}
-
-public enum VehicleStatus { // Made public
-    AVAILABLE,
-    RENTED,
-    MAINTENANCE,
-    UNAVAILABLE
-}
+// VehicleType and VehicleStatus enums are now in their own files.
+// Imports for them are not strictly needed if they are in the same package,
+// but would be if they were in different packages.
+// For clarity, if they were in a sub-package like com.MC_656.mobility.model.enums,
+// you'd add:
+// import com.MC_656.mobility.model.enums.VehicleType;
+// import com.MC_656.mobility.model.enums.VehicleStatus;
+// Since they are in com.MC_656.mobility.model directly, no import is needed here.
 
 @Entity
 @Table(name = "vehicles")
