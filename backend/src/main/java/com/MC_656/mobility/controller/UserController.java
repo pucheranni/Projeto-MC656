@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping; // Added
+import org.springframework.security.access.prepost.PreAuthorize; // Added
+import java.util.List; // Added
+import java.util.stream.Collectors; // Added for stream operations
 
 @RestController
 @RequestMapping("/api/users")
