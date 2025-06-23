@@ -52,11 +52,31 @@ class VehicleEditModel: ObservableObject {
         }
     }
 
-    func saveVehicle() {
+    func saveVehicle() async {
         if isEditing {
             print("Salvando: \(name)")
+            // TODO: Implementar edição
         } else {
             print("Cadastrando: \(name)")
+            let service = VehicleEditService()
+            do {
+                try await service.createVehicle(
+                    name: name,
+                    description: description,
+                    pickupLocation: pickupLocation,
+                    type: vehicleType.rawValue,
+                    yearManufacture: 2024, // ou outro valor
+                    licensePlate: nil, // ou outro valor
+                    latitude: nil, // ou outro valor
+                    longitude: nil, // ou outro valor
+                    accessories: nil, // ou outro valor
+                    requiresId: requiresId,
+                    depositAmount: Double(depositAmount)
+                )
+                print("Veículo cadastrado com sucesso!")
+            } catch {
+                print("Erro ao cadastrar veículo: \(error.localizedDescription)")
+            }
         }
     }
 
