@@ -111,20 +111,23 @@ public class RentalService {
 
         switch (rental.getRentalPlan()) {
             case DAILY:
-                // If rented for less than MIN_RENTAL_MINUTES_FOR_DAILY minutes, maybe charge a fraction or minimum fee
-                // For simplicity, charge full days. If duration is less than a day but over threshold, charge 1 day.
-                if (days == 0 && (hours > 0 || minutes >= MIN_RENTAL_MINUTES_FOR_DAILY/60.0) ) { // simplified check
-                     days = 1;
-                } else if (days == 0 && hours == 0 && minutes < MIN_RENTAL_MINUTES_FOR_DAILY) {
-                    // Example: charge a minimum fee or make it free if very short. For now, let's say 1 day minimum if over threshold.
-                    // This logic can be very complex.
-                    // For now, if it's less than threshold, let's assume it's 0 for simplicity, or a small fee.
-                    // Let's stick to: if any part of a day is used (beyond a very small threshold), it's a daily charge.
-                    if (duration.toMinutes() < MIN_RENTAL_MINUTES_FOR_DAILY) return BigDecimal.ZERO; // Or a minimum fee
-                    days = 1;
+                if (duration.toMinutes() == 0) { // Zero duration specifically
+                    return BigDecimal.ZERO;
                 }
-                if (hours > 0 || minutes > 0) days++; // Count partial days as full days
-                return DAILY_RATE.multiply(BigDecimal.valueOf(Math.max(1, days))); // Ensure at least one day is charged if plan is daily
+                // If duration is less than the minimum rental minutes threshold, charge zero.
+                // (Based on test "testCalculateCost_Daily_LessThanThreshold_ShouldBeZeroOrMin")
+                if (duration.toMinutes() < MIN_RENTAL_MINUTES_FOR_DAILY) {
+                    return BigDecimal.ZERO;
+                }
+
+                // If MIN_RENTAL_MINUTES_FOR_DAILY or more
+                long calculatedDays = days; // days from duration.toDays()
+                // If there are any hours or minutes part, it means it's a partial day, so increment days.
+                if (hours > 0 || minutes > 0) {
+                    calculatedDays++;
+                }
+                // Ensure at least one day is charged if it met/exceeded the threshold and wasn't zero.
+                return DAILY_RATE.multiply(BigDecimal.valueOf(Math.max(1, calculatedDays)));
 
             case WEEKLY:
                 long weeks = days / 7;

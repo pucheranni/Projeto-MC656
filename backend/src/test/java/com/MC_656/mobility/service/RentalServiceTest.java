@@ -55,7 +55,7 @@ class RentalServiceTest {
         LocalDateTime end = LocalDateTime.of(2023, 1, 1, 10, 30, 0); // 30 minutes
         Rental rental = createRental(start, end, RentalPlan.DAILY);
         BigDecimal cost = rentalService.calculateCost(rental); // Made package-private for testing
-        assertEquals(new BigDecimal("0.00"), cost, "Cost for 30 mins daily should be 0.00 or a minimum fee");
+        assertEquals(BigDecimal.ZERO, cost, "Cost for 30 mins daily should be 0.00 or a minimum fee");
     }
 
     @Test
@@ -157,7 +157,7 @@ class RentalServiceTest {
         LocalDateTime end = LocalDateTime.of(2023, 1, 1, 10, 0, 0); // 0 minutes
         Rental rental = createRental(start, end, RentalPlan.DAILY);
         BigDecimal cost = rentalService.calculateCost(rental);
-        assertEquals(new BigDecimal("0.00"), cost, "Cost for 0 mins daily should be 0.00");
+        assertEquals(BigDecimal.ZERO, cost, "Cost for 0 mins daily should be 0.00");
     }
 
 }

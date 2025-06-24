@@ -35,7 +35,7 @@ class VehicleEditModel: ObservableObject {
     @Published var depositAmount: String = ""
 
     var isEditing: Bool
-    private var vehicleId: UUID?
+    private var vehicleId: Int? // Changed from UUID? to Int?
 
     var navigationTitle: String {
         isEditing ? "Editar Veículo" : "Cadastrar Veículo"
@@ -44,11 +44,28 @@ class VehicleEditModel: ObservableObject {
     init(vehicle: Vehicle? = nil) {
         if let vehicle = vehicle {
             self.isEditing = true
-            self.vehicleId = vehicle.id
-            self.name = vehicle.name
-            // resto
+            self.vehicleId = vehicle.id // Now Int
+            self.name = vehicle.make // Use make for name field in edit model
+            self.description = vehicle.model // Use model for description field in edit model
+
+            // Attempt to map other relevant fields from Vehicle to VehicleEditModel
+            self.vehicleType = VehicleType(rawValue: vehicle.type) ?? .outros // Map string type back to enum
+            self.pickupLocation = vehicle.pickupLocation ?? "" // Populate if available
+
+            // Accessories: Vehicle has [String]?, EditModel has individual Bools and otherAccessories String.
+            // This requires more complex mapping, for now, we'll leave it simple or clear them.
+            // For simplicity in this step, we won't try to parse accessories back perfectly.
+            self.includesHelmet = vehicle.accessories?.contains("Capacete") ?? false // Example
+            self.includesLock = vehicle.accessories?.contains("Cadeado") ?? false   // Example
+            // self.otherAccessories = ... // Would need to filter out known accessories and join others
+
+            self.requiresId = vehicle.requiresId ?? false
+            self.requiresDeposit = vehicle.depositAmount != nil && vehicle.depositAmount! > 0
+            self.depositAmount = vehicle.depositAmount != nil ? String(format: "%.2f", vehicle.depositAmount!) : ""
+
         } else {
             self.isEditing = false
+            // Default values are already set by @Published initializers
         }
     }
 
