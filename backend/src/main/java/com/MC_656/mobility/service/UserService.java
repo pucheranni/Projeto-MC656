@@ -32,7 +32,10 @@ public class UserService {
                 registerRequest.getUsername(),
                 passwordEncoder.encode(registerRequest.getPassword()),
                 registerRequest.getEmail(),
-                registerRequest.getName()
+                registerRequest.getName(),
+                registerRequest.getSocialName(),
+                registerRequest.getPhoneNumber(),
+                registerRequest.getCpf()
         );
 
         return userRepository.save(user);

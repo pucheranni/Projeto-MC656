@@ -40,6 +40,10 @@ public class AuthService {
         return new JwtResponse(jwt,
                                user.getId(),
                                user.getUsername(),
-                               user.getEmail());
+                               user.getEmail(),
+                               user.getName(),
+                               user.getSocialName(),
+                               user.getPhoneNumber(),
+                               user.getCpf());
     }
 }
