@@ -63,8 +63,10 @@ struct VehicleEditView: View {
             
             Section {
                 Button(model.isEditing ? "Salvar Alterações" : "Cadastrar") {
-                    model.saveVehicle()
-                    dismiss()
+                    Task {
+                        await model.saveVehicle()
+                        dismiss()
+                    }
                 }
                 .tint(.accentColor)
                 
