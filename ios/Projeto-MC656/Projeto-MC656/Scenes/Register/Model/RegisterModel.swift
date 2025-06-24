@@ -19,6 +19,8 @@ class RegisterModel: ObservableObject, CustomButtonDelegate {
     @Published var isLoading: Bool = false
     @Published var showError: Bool = false
     @Published var errorMessage: String?
+    
+    private let service = RegisterService()
 
     @MainActor
     func register() async {
@@ -33,8 +35,8 @@ class RegisterModel: ObservableObject, CustomButtonDelegate {
             try cpf.check(.cpf)
             try password.check(.password)
             try password.comparePassword(with: passwordConfirmation)
-//            try await callBack
-            try await Task.sleep(nanoseconds: 2_000_000_000)
+
+            try await service.callRegister(name: fullName, socialName: socialName, email: email, phone: phone, cpf: cpf, password: password)
 
         } catch {
             showError = true
