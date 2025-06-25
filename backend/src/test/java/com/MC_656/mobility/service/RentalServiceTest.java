@@ -1,5 +1,6 @@
 package com.MC_656.mobility.service;
-
+import com.MC_656.mobility.model.VehicleStatus;
+import java.util.Optional;
 import com.MC_656.mobility.model.Rental;
 import com.MC_656.mobility.model.RentalPlan;
 import com.MC_656.mobility.model.User;
@@ -24,6 +25,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
